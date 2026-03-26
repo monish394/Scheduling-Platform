@@ -12,6 +12,12 @@ import bookingCtrl from './app/controller/bookingController.js';
 import notificationCtrl from './app/controller/notificationController.js';
 import { AuthenticateUser } from './app/middleware/authMiddleware.js';
 
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 connectDB();
 
 const app = express();
@@ -20,6 +26,7 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
+// API Routes
 app.post('/api/users/register', userCtrl.registerUser);
 app.post('/api/users/login', userCtrl.loginUser);
 app.post('/api/users/google-login', userCtrl.googleLogin);
@@ -43,6 +50,14 @@ app.patch('/api/notifications/:id/read', AuthenticateUser, notificationCtrl.mark
 app.get('/api/public/event/:username/:slug', publicCtrl.getPublicEvent);
 app.post('/api/public/book', publicCtrl.createPublicBooking);
 
+// Serving Frontend
+const frontendPath = path.join(__dirname, '../frontend/dist');
+app.use(express.static(frontendPath));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(frontendPath, 'index.html'));
+});
+
 app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+  console.log(`Server is running on PORT ${PORT}`);
 });
