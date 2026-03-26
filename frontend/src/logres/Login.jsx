@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import { GoogleLogin } from '@react-oauth/google';
 import './logres.css';
 
-const API_URL = 'http://localhost:5001/api/users';
+const API_URL = '/api/users';
 
 function Login() {
   const navigate = useNavigate();

@@ -4,7 +4,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import './logres.css';
 
-const API_URL = 'http://localhost:5001/api/users';
+const API_URL = '/api/users';
 
 function CompleteProfile() {
   const navigate = useNavigate();
