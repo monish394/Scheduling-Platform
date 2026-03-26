@@ -1,0 +1,113 @@
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(10, 10, 26, 0.7);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+}
+
+.compact-modal {
+    background: #0a0a1a;
+    width: 95%; /* Responsive width */
+    max-width: 400px; /* Even smaller and more focused */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.7);
+    animation: modalSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.compact-modal-header {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.compact-modal-header h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: #fff;
+    font-weight: 800;
+}
+
+.compact-close-btn {
+    background: none;
+    border: none;
+    color: #64748b;
+    font-size: 1.75rem;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.compact-modal-body {
+    padding: 1.75rem 1.5rem; /* Reduced padding */
+}
+
+.compact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+}
+
+.c-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.c-form-group label {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: #94a3b8;
+}
+
+.c-form-group input, .c-form-group select {
+    background: rgba(255, 255, 255, 0.03) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    padding: 1rem 1.25rem;
+    border-radius: 12px;
+    color: #fff;
+    font-size: 0.95rem;
+    outline: none;
+    transition: all 0.2s;
+}
+
+.c-form-group input:focus {
+    border-color: #6366f1;
+    background: rgba(99, 102, 241, 0.05) !important;
+}
+
+.c-submit-btn {
+    padding: 1.1rem;
+    background: linear-gradient(135deg, #6366f1, #818cf8);
+    color: #fff;
+    border: none;
+    border-radius: 15px;
+    font-weight: 800;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 1rem;
+}
+
+.c-submit-btn.security {
+    background: linear-gradient(135deg, #10b981, #34d399);
+}
+
+.c-submit-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
+}
+
+@keyframes modalSlideUp {
+    from { transform: translateY(30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}

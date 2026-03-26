@@ -1,0 +1,707 @@
+/* ===== LOGRES SHARED STYLES ===== */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+/* ---- Page Layout ---- */
+.logres-page {
+  display: flex;
+  height: 100vh;
+  font-family: 'Inter', sans-serif;
+  background: #0a0a1a;
+  color: #e2e8f0;
+  overflow: hidden;
+}
+
+/* ---- Form Section ---- */
+.logres-form-section {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.logres-back-link {
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #64748b;
+  text-decoration: none;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all 0.2s;
+  z-index: 10;
+}
+
+.logres-back-link:hover {
+  color: #fff;
+  transform: translateX(-3px);
+}
+
+.logres-form-section::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at 30% 50%, rgba(99, 102, 241, 0.06) 0%, transparent 50%),
+              radial-gradient(circle at 70% 80%, rgba(139, 92, 246, 0.04) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.logres-form-container {
+  width: 100%;
+  max-width: 380px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ---- Error Alert ---- */
+.logres-error {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.6rem 0.8rem;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  border-radius: 8px;
+  color: #f87171;
+  font-size: 0.78rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+  animation: logres-shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+.logres-error svg {
+  flex-shrink: 0;
+  color: #ef4444;
+}
+
+@keyframes logres-shake {
+  10%, 90% { transform: translate3d(-1px, 0, 0); }
+  20%, 80% { transform: translate3d(2px, 0, 0); }
+  30%, 50%, 70% { transform: translate3d(-3px, 0, 0); }
+  40%, 60% { transform: translate3d(3px, 0, 0); }
+}
+
+/* ---- Brand ---- */
+.logres-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.logres-brand-icon {
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  box-shadow: 0 4px 20px rgba(99, 102, 241, 0.3);
+}
+
+.logres-brand-icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.logres-brand-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #c7d2fe, #a78bfa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ---- Heading ---- */
+.logres-heading {
+  margin-bottom: 1rem;
+}
+
+.logres-heading h1 {
+  font-size: 1.35rem;
+  font-weight: 800;
+  margin: 0 0 0.25rem 0;
+  background: linear-gradient(135deg, #fff, #cbd5e1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.logres-heading p {
+  margin: 0;
+  color: #94a3b8;
+  font-size: 0.8rem;
+}
+
+/* ---- Social Buttons ---- */
+.logres-social {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.875rem;
+}
+
+.logres-social-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.03);
+  color: #e2e8f0;
+  font-size: 0.775rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-family: inherit;
+}
+
+.logres-social-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.logres-social-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.15);
+  transform: translateY(-1px);
+}
+
+.logres-social-btn.google-bottom {
+  flex: none;
+  width: auto;
+  min-width: 140px;
+  margin: 1.5rem auto 0;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 0.6rem 1.2rem;
+}
+
+/* ---- Divider ---- */
+.logres-divider {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.875rem;
+}
+
+.logres-divider::before,
+.logres-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+}
+
+.logres-divider span {
+  font-size: 0.7rem;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+/* ---- Form Fields ---- */
+.logres-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.logres-field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.logres-field label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #cbd5e1;
+  margin-bottom: 0.3rem;
+}
+
+.logres-label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logres-forgot {
+  font-size: 0.7rem;
+  color: #818cf8;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.logres-forgot:hover {
+  color: #a5b4fc;
+}
+
+.logres-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.logres-input-icon {
+  position: absolute;
+  left: 10px;
+  color: #64748b;
+  pointer-events: none;
+  transition: color 0.2s;
+  width: 15px;
+  height: 15px;
+}
+
+.logres-input-wrapper input {
+  width: 100%;
+  padding: 0.55rem 2.2rem 0.55rem 2.2rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.03);
+  color: #e2e8f0;
+  font-size: 0.8rem;
+  font-family: inherit;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  outline: none;
+}
+
+.logres-input-wrapper input:focus {
+  border-color: #6366f1;
+  background: rgba(99, 102, 241, 0.05);
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.12);
+}
+
+.logres-input-wrapper input:focus ~ .logres-input-icon,
+.logres-input-wrapper input:focus + .logres-input-icon {
+  color: #818cf8;
+}
+
+.logres-input-wrapper input::placeholder {
+  color: #475569;
+  font-size: 0.78rem;
+}
+
+.logres-toggle-pw {
+  position: absolute;
+  right: 8px;
+  background: none;
+  border: none;
+  color: #64748b;
+  cursor: pointer;
+  padding: 2px;
+  display: flex;
+  transition: color 0.2s;
+}
+
+.logres-toggle-pw svg {
+  width: 15px;
+  height: 15px;
+}
+
+.logres-toggle-pw:hover {
+  color: #a5b4fc;
+}
+
+/* ---- Select Dropdown ---- */
+.logres-select {
+  width: 100%;
+  padding: 0.55rem 1rem 0.55rem 2.2rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.03);
+  color: #e2e8f0;
+  font-size: 0.8rem;
+  font-family: inherit;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+}
+
+.logres-select:focus {
+  border-color: #6366f1;
+  background-color: rgba(99, 102, 241, 0.05);
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.12);
+}
+
+.logres-select option {
+  background: #1e1b4b;
+  color: #e2e8f0;
+  padding: 0.5rem;
+}
+
+/* ---- Password Strength ---- */
+.logres-pw-strength {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.3rem;
+}
+
+.logres-pw-bars {
+  display: flex;
+  gap: 3px;
+  flex: 1;
+}
+
+.logres-pw-bar {
+  height: 3px;
+  flex: 1;
+  border-radius: 99px;
+  transition: background-color 0.3s;
+}
+
+.logres-pw-strength span {
+  font-size: 0.65rem;
+  font-weight: 500;
+}
+
+/* ---- Checkbox ---- */
+.logres-remember {
+  margin-top: 0;
+}
+
+.logres-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.75rem;
+  color: #94a3b8;
+  cursor: pointer;
+}
+
+.logres-checkbox-label input[type="checkbox"] {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.03);
+  accent-color: #6366f1;
+  cursor: pointer;
+}
+
+.logres-checkbox-label a {
+  color: #818cf8;
+  text-decoration: none;
+}
+
+.logres-checkbox-label a:hover {
+  text-decoration: underline;
+}
+
+/* ---- Submit Button ---- */
+.logres-submit-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  width: 100%;
+  padding: 0.6rem;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.logres-submit-btn svg {
+  width: 15px;
+  height: 15px;
+}
+
+.logres-submit-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+  transition: left 0.5s;
+}
+
+.logres-submit-btn:hover::before {
+  left: 100%;
+}
+
+.logres-submit-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 24px rgba(99, 102, 241, 0.35);
+}
+
+.logres-submit-btn:active {
+  transform: translateY(0);
+}
+
+/* ---- Switch Link ---- */
+.logres-switch {
+  text-align: center;
+  margin-top: 0.875rem;
+  font-size: 0.78rem;
+  color: #94a3b8;
+}
+
+.logres-switch a {
+  color: #818cf8;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s;
+}
+
+.logres-switch a:hover {
+  color: #a5b4fc;
+}
+
+/* ===== Image Section ===== */
+.logres-image-section {
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  overflow: hidden;
+  height: 100vh;
+}
+
+.logres-image-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(10, 10, 26, 0.3) 0%,
+    rgba(10, 10, 26, 0.1) 40%,
+    rgba(10, 10, 26, 0.7) 75%,
+    rgba(10, 10, 26, 0.95) 100%
+  );
+  z-index: 1;
+}
+
+.logres-hero-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.logres-image-content {
+  position: relative;
+  z-index: 2;
+  padding: 2rem;
+  max-width: 420px;
+}
+
+.logres-image-badge {
+  display: inline-block;
+  padding: 0.3rem 0.75rem;
+  border-radius: 99px;
+  background: rgba(99, 102, 241, 0.2);
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  color: #c7d2fe;
+  font-size: 0.7rem;
+  font-weight: 500;
+  margin-bottom: 0.75rem;
+  backdrop-filter: blur(10px);
+}
+
+.logres-image-content h2 {
+  font-size: 1.25rem;
+  font-weight: 800;
+  margin: 0 0 0.5rem 0;
+  color: #fff;
+  line-height: 1.3;
+}
+
+.logres-image-content p {
+  font-size: 0.8rem;
+  color: #cbd5e1;
+  line-height: 1.5;
+  margin: 0 0 1rem 0;
+}
+
+/* ---- Dots ---- */
+.logres-image-dots {
+  display: flex;
+  gap: 6px;
+}
+
+.logres-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.2);
+  transition: all 0.3s;
+}
+
+.logres-dot.active {
+  width: 20px;
+  background: #818cf8;
+}
+
+/* ---- Feature List (Register) ---- */
+.logres-features-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.logres-feature-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.78rem;
+  color: #cbd5e1;
+}
+
+.logres-feature-item svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+  .logres-page {
+    flex-direction: column;
+    height: auto;
+    min-height: 100vh;
+    overflow: auto;
+  }
+
+  .logres-back-link {
+    top: 1rem;
+    left: 1rem;
+  }
+
+  .logres-register.logres-page {
+    flex-direction: column-reverse;
+  }
+
+  .logres-image-section {
+    display: none;
+  }
+
+  .logres-image-content {
+    padding: 1.25rem;
+  }
+
+  .logres-image-content h2 {
+    font-size: 1.1rem;
+  }
+
+  .logres-form-section {
+    padding: 3rem 1.25rem;
+  }
+
+  .logres-field-row {
+    grid-template-columns: 1fr;
+    gap: 0.7rem;
+  }
+}
+
+/* ===== Register Page Compact Overrides ===== */
+.logres-register .logres-brand {
+  margin-bottom: 0.5rem;
+}
+
+.logres-register .logres-heading {
+  margin-bottom: 0.6rem;
+}
+
+.logres-register .logres-heading h1 {
+  font-size: 1.2rem;
+}
+
+.logres-register .logres-heading p {
+  font-size: 0.72rem;
+}
+
+.logres-register .logres-social {
+  margin-bottom: 0.5rem;
+}
+
+.logres-register .logres-social-btn {
+  padding: 0.4rem 0.5rem;
+}
+
+.logres-register .logres-divider {
+  margin-bottom: 0.5rem;
+}
+
+.logres-register .logres-form {
+  gap: 0.5rem;
+}
+
+.logres-register .logres-field label {
+  margin-bottom: 0.2rem;
+  font-size: 0.7rem;
+}
+
+.logres-register .logres-input-wrapper input,
+.logres-register .logres-select {
+  padding-top: 0.45rem;
+  padding-bottom: 0.45rem;
+  font-size: 0.78rem;
+}
+
+.logres-register .logres-submit-btn {
+  padding: 0.5rem;
+  font-size: 0.8rem;
+}
+
+.logres-register .logres-switch {
+  margin-top: 0.6rem;
+  font-size: 0.72rem;
+}
+
+.logres-register .logres-checkbox-label {
+  font-size: 0.7rem;
+}
+
+/* ===== Animations ===== */
+@keyframes logres-fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.logres-form-container {
+  animation: logres-fadeInUp 0.6s ease-out;
+}
+
+.logres-image-content {
+  animation: logres-fadeInUp 0.8s ease-out 0.2s both;
+}

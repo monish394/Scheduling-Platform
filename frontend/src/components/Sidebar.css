@@ -1,0 +1,136 @@
+.dash-sidebar {
+  width: 280px; /* Slight increase for better spacing */
+  height: 100vh;
+  background: rgba(10, 10, 26, 0.95);
+  backdrop-filter: blur(20px);
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 100;
+  transition: all 0.3s;
+}
+
+.sidebar-brand {
+  padding: 2.5rem 2.5rem; /* Increased padding */
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 1.4rem; /* Larger brand name */
+  font-weight: 800;
+  background: linear-gradient(135deg, #c7d2fe, #a78bfa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.02em;
+}
+
+.sidebar-logo {
+  width: 36px;
+  height: 36px;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  -webkit-text-fill-color: unset;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+
+.sidebar-nav {
+  padding: 1.5rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem; /* Better spacing between links */
+  flex: 1;
+}
+
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.9rem 1.25rem;
+  border-radius: 12px;
+  color: #94a3b8;
+  text-decoration: none;
+  font-size: 1rem; /* Increased font size for better visibility */
+  font-weight: 600; /* Bolder font */
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sidebar-link svg {
+  color: #64748b;
+  width: 22px;
+  height: 22px;
+  transition: all 0.2s;
+}
+
+.sidebar-link:hover {
+  background: rgba(255, 255, 255, 0.04);
+  color: #fff;
+  transform: translateX(4px);
+}
+
+.sidebar-link:hover svg {
+  color: #818cf8;
+}
+
+.sidebar-link.active {
+  background: rgba(99, 102, 241, 0.1);
+  color: #818cf8;
+  border-left: 3px solid #6366f1;
+  border-radius: 0 12px 12px 0;
+  margin-left: -1.25rem;
+  padding-left: 2.25rem;
+}
+
+.sidebar-link.active svg {
+  color: #818cf8;
+  transform: scale(1.1);
+}
+
+.sidebar-footer {
+  padding: 2rem 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.sidebar-upgrade-card {
+  width: 100%;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.08), rgba(139, 92, 246, 0.08));
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 18px;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.sidebar-upgrade-card:hover {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.12), rgba(139, 92, 246, 0.12));
+  transform: translateY(-2px);
+  border-color: rgba(99, 102, 241, 0.3);
+}
+
+.sidebar-upgrade-card h4 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 0.4rem;
+}
+
+.sidebar-upgrade-card p {
+  font-size: 0.8rem;
+  color: #64748b;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Ensure mobile menu still hides it */
+@media (max-width: 768px) {
+  .dash-sidebar {
+    display: none !important;
+  }
+}
