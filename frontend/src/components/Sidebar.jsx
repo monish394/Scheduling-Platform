@@ -113,7 +113,7 @@ function Sidebar() {
 
   return (
     <aside className="w-[280px] h-screen bg-white/[0.01] border-r border-white/5 flex flex-col fixed left-0 top-0 z-[100]">
-      <Link to="/" className="p-10 px-8 flex items-center gap-3 group transition-all active:scale-95">
+      <Link to="/dashboard" className="p-10 px-8 flex items-center gap-3 group transition-all active:scale-95">
         <div className="w-10 h-10 rounded-xl overflow-hidden shadow-lg shadow-indigo-500/20 group-hover:shadow-indigo-500/40 transition-all">
           <img src="/images/logo.png" alt="SchedulePro Logo" className="w-full h-full object-cover" />
         </div>

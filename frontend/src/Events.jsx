@@ -15,6 +15,7 @@ function Events() {
   const [submitting, setSubmitting] = useState(false);
   const [deletingId, setDeletingId] = useState(null);
   const [copiedSlug, setCopiedSlug] = useState(null);
+  const [editingId, setEditingId] = useState(null);
 
   const user = JSON.parse(localStorage.getItem('user') || '{}');
 
@@ -41,16 +42,39 @@ function Events() {
     e.preventDefault();
     setSubmitting(true);
     try {
-      await api.post('/events', formData);
-      toast.success('Event type created successfully!');
+      if (editingId) {
+        await api.put(`/events/${editingId}`, formData);
+        toast.success('Event type updated successfully!');
+      } else {
+        await api.post('/events', formData);
+        toast.success('Event type created successfully!');
+      }
       setShowForm(false);
+      setEditingId(null);
       setFormData({ title: '', duration: 30, description: '' });
       fetchEvents();
     } catch (err) {
-      toast.error(err.response?.data?.message || 'Failed to create event.');
+      toast.error(err.response?.data?.message || `Failed to ${editingId ? 'update' : 'create'} event.`);
     } finally {
       setSubmitting(false);
     }
+  };
+
+  const handleEdit = (event) => {
+    setEditingId(event._id);
+    setFormData({
+      title: event.title,
+      duration: event.duration,
+      description: event.description || '',
+    });
+    setShowForm(true);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleCloseForm = () => {
+    setShowForm(false);
+    setEditingId(null);
+    setFormData({ title: '', duration: 30, description: '' });
   };
 
   const handleDelete = async (id) => {
@@ -162,14 +186,14 @@ function Events() {
                   </svg>
                 </div>
                 <div>
-                  <h3 className="text-lg font-extrabold text-white">New Event Type</h3>
+                  <h3 className="text-lg font-extrabold text-white">{editingId ? 'Edit Event Type' : 'New Event Type'}</h3>
                   <p className="text-xs text-slate-500 font-medium">
                     Fill in the details below
                   </p>
                 </div>
               </div>
               <button
-                onClick={() => setShowForm(false)}
+                onClick={handleCloseForm}
                 className="w-9 h-9 flex items-center justify-center rounded-lg bg-white/[0.04] border border-white/[0.06] text-slate-500 hover:text-white hover:bg-white/[0.08] transition-all"
               >
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -258,7 +282,7 @@ function Events() {
 <div className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-end gap-3 pt-4 border-t border-white/[0.04]">
                 <button
                   type="button"
-                  onClick={() => setShowForm(false)}
+                  onClick={handleCloseForm}
                   className="py-3 px-6 rounded-xl text-sm font-bold text-slate-400 bg-white/[0.03] border border-white/[0.06] hover:bg-white/[0.06] hover:text-white transition-all"
                 >
                   Cancel
@@ -281,7 +305,7 @@ function Events() {
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                         <polyline points="20 6 9 17 4 12" />
                       </svg>
-                      Create Event Type
+                      {editingId ? 'Update Event Type' : 'Create Event Type'}
                     </>
                   )}
                 </button>
@@ -420,17 +444,29 @@ function Events() {
                           </div>
                         </div>
 
-<button
-                          onClick={() => handleDelete(event._id)}
-                          disabled={isDeleting}
-                          className="w-8 h-8 flex items-center justify-center rounded-lg bg-transparent text-slate-600 opacity-0 group-hover:opacity-100 transition-all duration-200 hover:bg-red-500/10 hover:text-red-400"
-                          title="Delete event type"
-                        >
-                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                            <polyline points="3 6 5 6 21 6" />
-                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
-                          </svg>
-                        </button>
+                        <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-all duration-200">
+                          <button
+                            onClick={() => handleEdit(event)}
+                            className="w-8 h-8 flex items-center justify-center rounded-lg bg-transparent text-slate-500 hover:bg-white/[0.06] hover:text-white"
+                            title="Edit event type"
+                          >
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                              <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                              <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+                            </svg>
+                          </button>
+                          <button
+                            onClick={() => handleDelete(event._id)}
+                            disabled={isDeleting}
+                            className="w-8 h-8 flex items-center justify-center rounded-lg bg-transparent text-slate-600 hover:bg-red-500/10 hover:text-red-400"
+                            title="Delete event type"
+                          >
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                              <polyline points="3 6 5 6 21 6" />
+                              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                            </svg>
+                          </button>
+                        </div>
                       </div>
 
 <p className="text-xs text-slate-500 leading-relaxed flex-1 mb-5 line-clamp-2">

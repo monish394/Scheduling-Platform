@@ -151,28 +151,28 @@ function Dashboard() {
       <div className="flex flex-col gap-8 lg:gap-10 max-w-[1600px] pt-2 pb-24 px-6 sm:px-10 lg:px-12">
 
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 w-full">
-  <div className="space-y-1.5 text-left">
-    <h1 className="text-2xl lg:text-3xl font-extrabold tracking-tight text-white m-0">
-      {greeting}, <span className="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">{user.name?.split(' ')[0] || 'User'}</span>
-    </h1>
-    <p className="text-slate-500 text-xs font-bold uppercase tracking-widest m-0">
-      {stats.todayMeetings > 0 
-        ? `${stats.todayMeetings} Session${stats.todayMeetings > 1 ? 's' : ''} Today` 
-        : "No sessions today"}
-    </p>
-  </div>
-  
-  <div className="flex flex-wrap items-center gap-2.5">
-    <Link id="btn-create-event" to="/events" className="flex items-center gap-2 px-3.5 py-2.5 bg-indigo-500 text-white rounded-xl font-bold text-[11px] uppercase tracking-wider hover:bg-indigo-600 transition-all shadow-lg shadow-indigo-500/10">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-      Create Event
-    </Link>
-    <button id="btn-share-profile" onClick={() => copyLink()} className="flex items-center gap-2 px-3.5 py-2.5 bg-white/[0.05] border border-white/[0.08] text-slate-300 rounded-xl font-bold text-[11px] uppercase tracking-wider hover:bg-white/[0.08] transition-all">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
-      Share Profile
-    </button>
-  </div>
-</div>
+          <div className="space-y-1.5 text-left">
+            <h1 className="text-2xl lg:text-3xl font-extrabold tracking-tight text-white m-0">
+              {greeting}, <span className="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">{user.name?.split(' ')[0] || 'User'}</span>
+            </h1>
+            <p className="text-slate-500 text-xs font-bold uppercase tracking-widest m-0">
+              {stats.todayMeetings > 0
+                ? `${stats.todayMeetings} Session${stats.todayMeetings > 1 ? 's' : ''} Today`
+                : "No sessions today"}
+            </p>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-2.5">
+            <Link id="btn-create-event" to="/events" className="flex items-center gap-2 px-3.5 py-2.5 bg-indigo-500 text-white rounded-xl font-bold text-[11px] uppercase tracking-wider hover:bg-indigo-600 transition-all shadow-lg shadow-indigo-500/10">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></svg>
+              Create Event
+            </Link>
+            <button id="btn-share-profile" onClick={() => copyLink()} className="flex items-center gap-2 px-3.5 py-2.5 bg-white/[0.05] border border-white/[0.08] text-slate-300 rounded-xl font-bold text-[11px] uppercase tracking-wider hover:bg-white/[0.08] transition-all">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8" /><polyline points="16 6 12 2 8 6" /><line x1="12" y1="2" x2="12" y2="15" /></svg>
+              Share Profile
+            </button>
+          </div>
+        </div>
 
         <div className="grid grid-cols-2 xl:grid-cols-4 gap-3 sm:gap-4">
           {[
@@ -316,12 +316,12 @@ function Dashboard() {
                 );
               })}
 
-              <path d={areaPath} fill="url(#bookingArea)" />
+              <path d={areaPath} fill="url(#bookingArea)" className="animate-chart-area" />
 
-              <path d={linePath} fill="none" stroke="url(#bookingLine)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" filter="url(#glow)" />
+              <path d={linePath} fill="none" stroke="url(#bookingLine)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" filter="url(#glow)" className="animate-chart-line" />
 
               {pts.map((p, i) => (
-                <g key={i}>
+                <g key={i} className="animate-chart-point" style={{ animationDelay: `${i * 0.15 + 0.5}s` }}>
                   <circle cx={p.x} cy={p.y} r="4" fill="#a78bfa" stroke="#0a0a0c" strokeWidth="2" />
                   <circle cx={p.x} cy={p.y} r="10" fill="#6366f1" opacity="0.12" />
 
@@ -367,7 +367,7 @@ function Dashboard() {
                 </div>
                 <Link to="/bookings" className="text-[10px] font-bold text-slate-500 hover:text-indigo-400 flex items-center gap-1.5 group/link uppercase tracking-wider">
                   View Calendar
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="group-hover/link:translate-x-0.5 transition-transform"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="group-hover/link:translate-x-0.5 transition-transform"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg>
                 </Link>
               </div>
 
@@ -383,17 +383,17 @@ function Dashboard() {
                       <h4 className="text-base font-extrabold text-white mb-0.5 group-hover:text-indigo-300 transition-colors uppercase tracking-tight">{recentBookings[0].guestName}</h4>
                       <div className="flex items-center gap-3 text-slate-500 text-[11px] font-bold">
                         <span className="flex items-center gap-1.5 uppercase tracking-wider text-indigo-400/80">
-                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" /></svg>
                           {formatTime(recentBookings[0].startTime)}
                         </span>
                         <span className="w-1 h-1 rounded-full bg-slate-800" />
                         <span className="flex items-center gap-1.5 uppercase tracking-widest text-slate-400">
-                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /></svg>
                           {recentBookings[0].eventId?.title || 'Meeting'}
                         </span>
                       </div>
                     </div>
-                    <button 
+                    <button
                       onClick={() => window.location.href = `mailto:${recentBookings[0].guestEmail}`}
                       className="mt-4 sm:mt-0 sm:ml-auto px-5 py-2.5 bg-white text-indigo-600 rounded-lg font-bold text-[10px] uppercase tracking-widest hover:bg-slate-50 transition-all shadow-sm"
                     >
@@ -595,47 +595,47 @@ function Dashboard() {
             </section>
 
             <section id="quick-links" className="bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl sm:rounded-3xl p-6 lg:p-7 text-white relative overflow-hidden group">
-  <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 blur-3xl rounded-full" />
-  <div className="relative z-10">
-    <h3 className="text-base font-black uppercase tracking-[0.1em] mb-4 flex items-center gap-2">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-      Quick Links
-    </h3>
-    <p className="text-xs text-indigo-100 font-medium mb-5">Your permanent booking page is ready to share with clients and colleagues.</p>
-    <div className="space-y-3">
-      <button 
-        id="copy-booking-link"
-        onClick={() => copyLink()} 
-        className="w-full flex items-center justify-between p-3 bg-white/10 border border-white/20 rounded-xl hover:bg-white/20 transition-all group/btn"
-      >
-        <span className="text-xs font-bold truncate">schedulepro.com/{user.username}</span>
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" className="group-hover/btn:scale-110 transition-transform"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-      </button>
-      <Link 
-        id="view-public-page"
-        to={`/book/${user.username}`} 
-        target="_blank"
-        className="w-full flex items-center justify-center gap-2 py-3 bg-white text-indigo-600 rounded-xl font-black text-[10px] uppercase tracking-[0.1em] hover:bg-indigo-50 transition-all"
-      >
-        View Public Page
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-      </Link>
-    </div>
-  </div>
-</section>
+              <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 blur-3xl rounded-full" />
+              <div className="relative z-10">
+                <h3 className="text-base font-black uppercase tracking-[0.1em] mb-4 flex items-center gap-2">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" /><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" /></svg>
+                  Quick Links
+                </h3>
+                <p className="text-xs text-indigo-100 font-medium mb-5">Your permanent booking page is ready to share with clients and colleagues.</p>
+                <div className="space-y-3">
+                  <button
+                    id="copy-booking-link"
+                    onClick={() => copyLink()}
+                    className="w-full flex items-center justify-between p-3 bg-white/10 border border-white/20 rounded-xl hover:bg-white/20 transition-all group/btn"
+                  >
+                    <span className="text-xs font-bold truncate">schedulepro.com/{user.username}</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" className="group-hover/btn:scale-110 transition-transform"><rect x="9" y="9" width="13" height="13" rx="2" ry="2" /><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" /></svg>
+                  </button>
+                  <Link
+                    id="view-public-page"
+                    to={`/book/${user.username}`}
+                    target="_blank"
+                    className="w-full flex items-center justify-center gap-2 py-3 bg-white text-indigo-600 rounded-xl font-black text-[10px] uppercase tracking-[0.1em] hover:bg-indigo-50 transition-all"
+                  >
+                    View Public Page
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg>
+                  </Link>
+                </div>
+              </div>
+            </section>
 
-<section id="focus-mode" className="bg-white/[0.03] border border-white/[0.06] rounded-2xl sm:rounded-3xl p-5 lg:p-6 backdrop-blur-xl">
-  <div className="flex items-center gap-3 mb-6">
-    <div className="w-1.5 h-6 rounded-full bg-amber-400" />
-    <h3 className="text-sm font-black uppercase tracking-widest text-white">Focus Mode</h3>
-  </div>
-  <div className="p-4 rounded-xl bg-amber-500/5 border border-amber-500/10 mb-2">
-    <p className="text-xs font-semibold text-amber-200/70 mb-1">PRO TIP</p>
-    <p className="text-[11px] font-medium text-slate-400 leading-relaxed">
-      You have a <span className="text-white font-bold">2-hour deep work block</span> between your morning and afternoon sessions today.
-    </p>
-  </div>
-</section>
+            <section id="focus-mode" className="bg-white/[0.03] border border-white/[0.06] rounded-2xl sm:rounded-3xl p-5 lg:p-6 backdrop-blur-xl">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-1.5 h-6 rounded-full bg-amber-400" />
+                <h3 className="text-sm font-black uppercase tracking-widest text-white">Focus Mode</h3>
+              </div>
+              <div className="p-4 rounded-xl bg-amber-500/5 border border-amber-500/10 mb-2">
+                <p className="text-xs font-semibold text-amber-200/70 mb-1">PRO TIP</p>
+                <p className="text-[11px] font-medium text-slate-400 leading-relaxed">
+                  You have a <span className="text-white font-bold">2-hour deep work block</span> between your morning and afternoon sessions today.
+                </p>
+              </div>
+            </section>
           </div>
         </div>
       </div>
@@ -649,6 +649,36 @@ function Dashboard() {
           50% { transform: rotate(-4deg); }
           60% { transform: rotate(10deg); }
           70% { transform: rotate(0deg); }
+        }
+        @keyframes drawStroke {
+          from { stroke-dashoffset: 800; }
+          to { stroke-dashoffset: 0; }
+        }
+        @keyframes fadeInChart {
+          from { opacity: 0; transform: translateY(20px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes popPoint {
+          0% { transform: scale(0); opacity: 0; }
+          70% { transform: scale(1.2); opacity: 1; }
+          100% { transform: scale(1); opacity: 1; }
+        }
+        .animate-chart-line {
+          stroke-dasharray: 800;
+          stroke-dashoffset: 800;
+          animation: drawStroke 2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+          animation-delay: 0.3s;
+        }
+        .animate-chart-area {
+          opacity: 0;
+          animation: fadeInChart 1.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+          animation-delay: 0.1s;
+        }
+        .animate-chart-point {
+          opacity: 0;
+          transform-origin: center;
+          transform-box: fill-box;
+          animation: popPoint 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
         }
       `}</style>
     </Layout>

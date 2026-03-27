@@ -1,18 +1,79 @@
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
 
 function Home() {
+  useEffect(() => {
+    // Force scroll to top on refresh
+    window.history.scrollRestoration = 'manual';
+    window.scrollTo(0, 0);
+
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('reveal-active');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    const revealElements = document.querySelectorAll('.reveal-left, .reveal-right');
+    revealElements.forEach(el => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, []);
+
+  const scrollToTop = (e) => {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <div className="min-h-screen bg-[#0a0a0c] text-white font-['Inter',system-ui,sans-serif] overflow-x-hidden">
+      <style>{`
+        .reveal-left {
+          opacity: 0;
+          transform: translateX(-50px);
+          transition: all 2s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .reveal-right {
+          opacity: 0;
+          transform: translateX(50px);
+          transition: all 2s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .reveal-active {
+          opacity: 1;
+          transform: translateX(0);
+        }
+        @keyframes floatDown {
+          from { opacity: 0; transform: translateY(-20px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-top {
+          animation: floatDown 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+        @keyframes subtleFloat {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-5px); }
+        }
+        .logo-float {
+          animation: subtleFloat 4s ease-in-out infinite;
+        }
+      `}</style>
       <nav className="fixed top-0 left-0 right-0 z-50 bg-[#0a0a0c]/70 backdrop-blur-xl border-b border-white/[0.05]">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 rounded-xl overflow-hidden shadow-lg shadow-cyan-500/20 group-hover:shadow-cyan-500/40 transition-all active:scale-95">
+          <Link to="/" onClick={scrollToTop} className="flex items-center gap-3 group animate-top">
+            <div className="w-10 h-10 rounded-xl overflow-hidden shadow-lg shadow-cyan-500/20 group-hover:shadow-cyan-500/40 transition-all active:scale-95 logo-float">
               <img src="/images/logo.png" alt="SchedulePro Logo" className="w-full h-full object-cover" />
             </div>
             <span className="text-xl sm:text-2xl font-black tracking-tighter bg-gradient-to-r from-white via-cyan-200 to-sky-400 bg-clip-text text-transparent">SchedulePro</span>
           </Link>
 
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-8 animate-top" style={{ animationDelay: '0.1s' }}>
             <a href="#features" className="text-sm font-semibold text-slate-400 hover:text-white transition-colors">
               Features
             </a>
@@ -21,7 +82,7 @@ function Home() {
             </a>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 animate-top" style={{ animationDelay: '0.2s' }}>
             <Link
               to="/login"
               className="text-sm font-semibold text-slate-400 hover:text-cyan-400 transition-colors hidden sm:block"
@@ -48,7 +109,7 @@ function Home() {
           <div className="absolute top-[20%] right-[-5%] w-[400px] h-[400px] bg-purple-600/[0.06] rounded-full blur-[100px]" />
         </div>
 
-          <div className="relative z-10 max-w-4xl mx-auto text-center">
+          <div className="relative z-10 max-w-4xl mx-auto text-center reveal-left">
             <div className="inline-flex items-center gap-2 bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-bold mb-6 sm:mb-8">
               <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-pulse" />
               Scheduling made simple
@@ -85,12 +146,6 @@ function Home() {
               </a>
             </div>
 
-            <div className="mt-4 max-w-5xl mx-auto px-2 relative group">
-               <div className="absolute inset-0 bg-indigo-500/10 blur-[120px] rounded-full pointer-events-none -z-10 group-hover:bg-indigo-500/20 transition-all duration-700" />
-              
-              
-            </div>
-
             <div className="mt-20 sm:mt-24 flex flex-col sm:flex-row items-center justify-center gap-8 sm:gap-16">
               {[
                 { value: '10K+', label: 'Teams Syncing' },
@@ -110,7 +165,7 @@ function Home() {
 
       <section id="features" className="py-16 sm:py-20 px-4 sm:px-6">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12 sm:mb-16">
+          <div className="text-center mb-12 sm:mb-16 reveal-right">
             <p className="text-xs font-bold text-indigo-500 uppercase tracking-wider mb-3">Features</p>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight mb-3 sm:mb-4">
               Everything you need to schedule smarter
@@ -155,10 +210,10 @@ function Home() {
             ].map((feature, i) => (
               <div
                 key={i}
-                className="group bg-white/[0.02] border border-white/[0.06] hover:border-white/[0.12] rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:bg-white/[0.04]"
+                className={`group bg-white/[0.02] border border-white/[0.06] hover:border-white/[0.12] rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:bg-white/[0.04] ${i % 2 === 0 ? 'reveal-left' : 'reveal-right'}`}
               >
                 <div
-                  className={`w-12 h-12 rounded-xl bg-gradient-to-br ${feature.gradient} flex items-center justify-center mb-5 shadow-lg transition-transform duration-300 group-hover:scale-110`}
+                   className={`w-12 h-12 rounded-xl bg-gradient-to-br ${feature.gradient} flex items-center justify-center mb-5 shadow-lg transition-transform duration-300 group-hover:scale-110`}
                 >
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
                     <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
@@ -179,7 +234,7 @@ function Home() {
 
       <section id="how-it-works" className="py-16 sm:py-20 px-4 sm:px-6 bg-white/[0.01]">
         <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-12 sm:mb-16">
+          <div className="text-center mb-12 sm:mb-16 reveal-left">
             <p className="text-xs font-bold text-indigo-500 uppercase tracking-wider mb-3">How it Works</p>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight">
               Get started in 3 simple steps
@@ -192,7 +247,7 @@ function Home() {
               { num: `02`, title: `Set Your Availability`, desc: `Define when you're free to meet. Multiple time slots per day supported.` },
               { num: `03`, title: `Share Your Link`, desc: `Send your custom booking link. People choose a time that works for both of you.` },
             ].map((step, i) => (
-              <div key={i} className="relative">
+              <div key={i} className={`relative ${i % 2 === 0 ? 'reveal-left' : 'reveal-right'}`}>
                 <div className="text-5xl sm:text-6xl font-black text-white/[0.06] mb-4">{step.num}</div>
                 <h3 className="text-lg sm:text-xl font-bold text-white mb-2">{step.title}</h3>
                 <p className="text-sm text-slate-500 leading-relaxed">{step.desc}</p>
@@ -206,7 +261,7 @@ function Home() {
       </section>
 
       <section className="py-16 sm:py-20 px-4 sm:px-6">
-        <div className="max-w-3xl mx-auto">
+        <div className="max-w-3xl mx-auto reveal-right">
           <div className="relative bg-gradient-to-br from-indigo-600/10 via-purple-600/10 to-pink-600/10 border border-indigo-500/20 rounded-2xl sm:rounded-3xl p-8 sm:p-12 text-center overflow-hidden">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(99,102,241,0.1),transparent_50%)] pointer-events-none" />
 

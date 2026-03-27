@@ -31,9 +31,12 @@ app.post('/api/users/register', userCtrl.registerUser);
 app.post('/api/users/login', userCtrl.loginUser);
 app.post('/api/users/google-login', userCtrl.googleLogin);
 app.patch('/api/users/complete-profile', userCtrl.updateProfile);
+app.put('/api/users/profile', AuthenticateUser, userCtrl.updateProfile);
+app.patch('/api/users/password', AuthenticateUser, userCtrl.updatePassword);
 
 app.get('/api/events', AuthenticateUser, eventCtrl.getEvents);
 app.post('/api/events', AuthenticateUser, eventCtrl.createEvent);
+app.put('/api/events/:id', AuthenticateUser, eventCtrl.updateEvent);
 app.delete('/api/events/:id', AuthenticateUser, eventCtrl.deleteEvent);
 
 app.get('/api/availability', AuthenticateUser, availabilityCtrl.getAvailability);
@@ -50,7 +53,7 @@ app.patch('/api/notifications/:id/read', AuthenticateUser, notificationCtrl.mark
 app.get('/api/public/event/:username/:slug', publicCtrl.getPublicEvent);
 app.post('/api/public/book', publicCtrl.createPublicBooking);
 
-// Serving Frontend
+
 const frontendPath = path.join(__dirname, '../frontend/dist');
 app.use(express.static(frontendPath));
 

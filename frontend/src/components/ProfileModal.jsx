@@ -28,6 +28,8 @@ function ProfileModal({ isOpen, onClose, initialTab = 'general' }) {
             timezone: currentUser.timezone || 'Asia/Kolkata'
         });
     }
+    // Reset password fields on both open and close to ensure security and clean state
+    setPassData({ currentPassword: '', newPassword: '', confirmPassword: '' });
   }, [isOpen]);
 
   if (!isOpen) return null;
@@ -145,7 +147,6 @@ function ProfileModal({ isOpen, onClose, initialTab = 'general' }) {
   return (
     <div
       className="fixed inset-0 bg-black/60 backdrop-blur-md flex items-center justify-center z-[1100] p-4 animate-in fade-in duration-200"
-      onClick={onClose}
     >
       <div
         className="w-full max-w-sm bg-[#0f0f12] border border-white/10 rounded-2xl shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200"

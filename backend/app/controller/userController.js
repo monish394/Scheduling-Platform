@@ -154,7 +154,9 @@ userCtrl.googleLogin = async (req, res) => {
 userCtrl.updateProfile = async (req, res) => {
   try {
     const { _id, name, username, timezone } = req.body;
-    let user = await User.findById(_id);
+    const userId = req.userid || _id; // Use userid from auth middleware or fallback to body._id
+
+    let user = await User.findById(userId);
     if (!user) return res.status(404).json({ message: 'User not found' });
 
     // Check username uniqueness if changed
@@ -176,8 +178,39 @@ userCtrl.updateProfile = async (req, res) => {
       username: user.username,
       role: user.role,
       avatar: user.avatar,
+      timezone: user.timezone,
+      user: {
+        _id: user.id,
+        name: user.name,
+        email: user.email,
+        username: user.username,
+        role: user.role,
+        avatar: user.avatar,
+        timezone: user.timezone
+      },
       message: 'Profile updated!'
     });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+userCtrl.updatePassword = async (req, res) => {
+  try {
+    const { currentPassword, newPassword } = req.body;
+    const userId = req.userid;
+
+    const user = await User.findById(userId);
+    if (!user) return res.status(404).json({ message: 'User not found' });
+
+    const isMatch = await bcrypt.compare(currentPassword, user.password);
+    if (!isMatch) return res.status(400).json({ message: 'Incorrect current password' });
+
+    const salt = await bcrypt.genSalt(10);
+    user.password = await bcrypt.hash(newPassword, salt);
+    await user.save();
+
+    res.json({ message: 'Password updated successfully!' });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
